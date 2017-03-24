@@ -1,0 +1,968 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="js，字符串，string," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="字符串是js中很常见的数据类型，同数组一样，也有许多操作方法，下面就总结一下。
+字符方法charAt()
+功能：获取特定位置的字符
+返回值：指定位置的字符
+语法：Str.charAt(index)Str：被操作的字符串index：指定的字符的索引值，如果是负数，返回值为空">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js基础知识总结-字符串">
+<meta property="og:url" content="http://yoursite.com/2017/03/24/js基础知识总结-字符串/index.html">
+<meta property="og:site_name" content="SKYBLUE">
+<meta property="og:description" content="字符串是js中很常见的数据类型，同数组一样，也有许多操作方法，下面就总结一下。
+字符方法charAt()
+功能：获取特定位置的字符
+返回值：指定位置的字符
+语法：Str.charAt(index)Str：被操作的字符串index：指定的字符的索引值，如果是负数，返回值为空">
+<meta property="og:image" content="http://i.imgur.com/3AEt1sS.png">
+<meta property="og:updated_time" content="2017-03-24T09:03:30.023Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="js基础知识总结-字符串">
+<meta name="twitter:description" content="字符串是js中很常见的数据类型，同数组一样，也有许多操作方法，下面就总结一下。
+字符方法charAt()
+功能：获取特定位置的字符
+返回值：指定位置的字符
+语法：Str.charAt(index)Str：被操作的字符串index：指定的字符的索引值，如果是负数，返回值为空">
+<meta name="twitter:image" content="http://i.imgur.com/3AEt1sS.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/03/24/js基础知识总结-字符串/"/>
+
+
+
+
+
+  <title> js基础知识总结-字符串 | SKYBLUE </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">SKYBLUE</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Thinking of learning</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/24/js基础知识总结-字符串/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="文者字清">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SKYBLUE">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                js基础知识总结-字符串
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-24T14:42:17+08:00">
+                2017-03-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端学习-JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">前端学习-JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>　　字符串是js中很常见的数据类型，同数组一样，也有许多操作方法，下面就总结一下。</p>
+<h1 id="字符方法"><a href="#字符方法" class="headerlink" title="字符方法"></a>字符方法</h1><h2 id="charAt"><a href="#charAt" class="headerlink" title="charAt()"></a>charAt()</h2><ul>
+<li>功能：获取特定位置的字符</li>
+<li>返回值：指定位置的字符</li>
+<li><p>语法：<code>Str.charAt(index)</code><br>Str：被操作的字符串<br>index：指定的字符的索引值，如果是负数，返回值为空  </p>
+<a id="more"></a>
+<p>  // 定义一个字符串<br>  var str = “skyblueWZZQ/文者字清”;<br>  // 获取字符<br>  var result = str.charAt(6);<br>  // 控制台输出返回值<br>  console.log(result);    // 输出结果为 e</p>
+<h2 id="charCodeAt"><a href="#charCodeAt" class="headerlink" title="charCodeAt()"></a>charCodeAt()</h2></li>
+<li>功能：获取特定位置的字符的编码</li>
+<li>返回值：指定位置字符的字符编码</li>
+<li>语法：<code>Str.charCodeAt()</code><br>Str：被操作的字符串<br>idnex：指定字符的索引值，如果是负数，返回值为空</li>
+</ul>
+<pre><code>// 定义一个字符串
+var str = &quot;skyblueWZZQ/文者字清&quot;;
+// 获取字符
+var result = str.charCodeAt(6);
+// 控制台输出返回值
+console.log(result);    // 输出结果为 101
+</code></pre><h1 id="操作方法"><a href="#操作方法" class="headerlink" title="操作方法"></a>操作方法</h1><h2 id="拼接"><a href="#拼接" class="headerlink" title="拼接"></a>拼接</h2><h3 id="concat"><a href="#concat" class="headerlink" title="concat()"></a>concat()</h3><ul>
+<li>功能：拼接字符串</li>
+<li>返回值：拼接后的字符串</li>
+<li>语法：<code>Str.concat(str1,str2,str3...)</code>　参数一个或者多个字符串，用逗号间隔</li>
+<li>说明：通常情况下，使用 + 更为方便快捷  </li>
+</ul>
+<pre><code>// 定义字符串
+var str1 = &quot;skyblueWZZQ&quot;;
+var str2 = &quot;文者字清&quot;;
+// 拼接
+var result1 = str1.concat(&quot;/&quot;,str2);
+// 使用 + 拼接
+var result2 = str1 + &quot;/&quot; + str2;
+// 控制台输出
+console.log(result1);    // 输出结果为  skyblueWZZQ/文者字清
+console.log(result2);    // 输出结果为  skyblueWZZQ/文者字清
+</code></pre><h2 id="截取"><a href="#截取" class="headerlink" title="截取"></a>截取</h2><h3 id="slice"><a href="#slice" class="headerlink" title="slice()"></a>slice()</h3><ul>
+<li>功能：截取指定位置字符串</li>
+<li>返回值：截取后的新字符串</li>
+<li>语法：<code>Str.slice(start,end)</code><br>start：截取起始位置（包含该位置），<strong>必选</strong><br>end：截取的结束位置（不包含该位置），可选  </li>
+<li>说明：当传入的参数出现负数时，方法会将<strong>字符串长度加上传入的参数</strong>作为起始位置或者结束位置进行截取。  <blockquote>
+<p><strong>注意</strong>：当参入的参数是同向的（都是负数或者都是正数）起始位置始终是小于结束位置的，否则返回值为空</p>
+</blockquote>
+</li>
+</ul>
+<pre><code>// 定义字符串
+var str = &quot;skyblueWZZQ&quot;;
+//截取字符串 传入一个参数
+var result1 = str.slice(2);
+//截取字符串 传入两个参数
+var result2 = str.slice(2, 5);
+//截取字符串 传入一个负数参数
+var result3 = str.slice(-2);
+//截取字符串 传入两个负数参数
+var result4 = str.slice(-5, -2);
+// 控制台输出
+console.log(result1); // 输出结果：yblueWZZQ
+console.log(result2); // 输出结果：ybl
+console.log(result3); // 输出结果：zq
+console.log(result4); // 输出结果：eWZ
+</code></pre><h3 id="substr"><a href="#substr" class="headerlink" title="substr()"></a>substr()</h3><ul>
+<li>功能：截取指定位置字符串</li>
+<li>返回值：截取后的新字符串</li>
+<li>语法：<code>Str.substr(start,end)</code><br>start：截取起始位置（包含该位置）<br>end：截取的结束位置（不包含该位置），可选 </li>
+<li>说明：当传入的参数出现负数时，方法会将<strong>字符串长度加上传入的第一个参数</strong>作为起始位置进行截取。<blockquote>
+<p><strong>注意</strong>：如果第二个参数为负数，则返回空字符串</p>
+</blockquote>
+</li>
+</ul>
+<pre><code>// 定义字符串
+var str = &quot;skyblueWZZQ&quot;;
+//截取字符串 传入一个参数
+var result1 = str.substr(2);
+//截取字符串 传入两个参数
+var result2 = str.substr(2, 5);
+//截取字符串 传入一个负数参数
+var result3 = str.substr(-2);
+//截取字符串 传入两个负数参数
+var result4 = str.substr(-5, -2);
+// 控制台输出
+console.log(result1); // 输出结果：yblueWZZQ
+console.log(result2); // 输出结果：yblue
+console.log(result3); // 输出结果：zq
+console.log(result4); // 输出结果：空
+</code></pre><h3 id="substring"><a href="#substring" class="headerlink" title="substring()"></a>substring()</h3><ul>
+<li>功能：截取指定位置字符串</li>
+<li>返回值：截取后的新字符串</li>
+<li>语法：<code>Str.substr(start,end)</code><br>start：截取起始位置（包含该位置）<br>end：截取的结束位置（不包含该位置），可选 </li>
+<li>说明：当传入的参数出现负数时，方法会将所有负数转换成0；<blockquote>
+<p><strong>注意</strong>：该方法还会将参数中小的数字作为起始位置</p>
+</blockquote>
+</li>
+</ul>
+<pre><code>// 定义字符串
+var str = &quot;skyblueWZZQ&quot;;
+//截取字符串 传入一个参数
+var result1 = str.substring(2);
+//截取字符串 传入两个参数
+var result2 = str.substring(2, 5);
+//截取字符串 传入一个负数参数
+var result3 = str.substring(-2);
+//截取字符串 传入两个负数参数
+var result4 = str.substring(-5, -2);
+//截取字符串 传入两个参数 第一个参数大于第二个
+var result5 = str.substring(5, 2);
+// 控制台输出
+console.log(result1); // 输出结果：yblueWZZQ
+console.log(result2); // 输出结果：ybl
+console.log(result3); // 输出结果：skyblueWZZQ
+console.log(result4); // 输出结果：空
+console.log(result5); // 输出结果：ybl
+</code></pre><h2 id="位置"><a href="#位置" class="headerlink" title="位置"></a>位置</h2><h3 id="indexOf"><a href="#indexOf" class="headerlink" title="indexOf()"></a>indexOf()</h3><ul>
+<li>功能：在指定字符串中<strong>从前向后</strong>搜寻子字符串</li>
+<li>返回值：包含子字符串，则返回该子字符串所在的索引值；不包含，则返回 -1</li>
+<li>语法：<code>Str.indexOf(str,index)</code><br>str：要查询的子字符串<br>index：指定字符串中的搜索位置，<strong>向后</strong>查找<blockquote>
+<p><strong>注意</strong>：该方法通常用来判断一个字符串中是否包含某个字符串</p>
+</blockquote>
+</li>
+</ul>
+<pre><code>// 定义字符串
+var str = &quot;skyblueWZZQ&quot;;
+// 查询字符串
+var result1 = str.indexOf(&quot;W&quot;);
+// 查询字符串
+var result2 = str.indexOf(&quot;文&quot;);
+// 控制台输出
+console.log(result1);    // 输出结果：7
+console.log(result2);    // 输出结果：-1
+</code></pre><h3 id="lastIndexOf"><a href="#lastIndexOf" class="headerlink" title="lastIndexOf()"></a>lastIndexOf()</h3><ul>
+<li>功能：在指定字符串中<strong>从后向前</strong>搜寻子字符串</li>
+<li>返回值：包含子字符串，则返回该子字符串所在的索引值；不包含，则返回 -1</li>
+<li>语法：<code>Str.lastIndexOf(str,index)</code><br>str：要查询的子字符串<br>index：指定字符串中的搜索位置，<strong>向前</strong>查找  </li>
+</ul>
+<h2 id="去除空格"><a href="#去除空格" class="headerlink" title="去除空格"></a>去除空格</h2><h3 id="trim"><a href="#trim" class="headerlink" title="trim()"></a>trim()</h3><ul>
+<li>功能：删除字符串前面和后面的所有空格</li>
+<li>返回值：新字符串</li>
+<li>语法：<code>Str.trim()</code><br>Str：要处理的子字符串  <blockquote>
+<p>注意：该方法是ES5新增的，使用时注意兼容性</p>
+</blockquote>
+</li>
+</ul>
+<pre><code>// 定义字符串
+var str = &quot;  skyblue WZZQ  &quot;;
+// 去除前后的空格
+var result = str.trim();
+console.log(result);    // 输出结果：skyblue WZZQ
+</code></pre><h2 id="大小写转换"><a href="#大小写转换" class="headerlink" title="大小写转换"></a>大小写转换</h2><h3 id="toLowerCase"><a href="#toLowerCase" class="headerlink" title="toLowerCase()"></a>toLowerCase()</h3><ul>
+<li>功能：将字符串转换成小写格式</li>
+<li>返回值：新字符串</li>
+<li>语法：<code>Str.toLowerCase()</code><br>Str：要处理的子字符串  </li>
+</ul>
+<pre><code>// 定义字符串
+var str = &quot;skyblueWZZQ&quot;;
+// 转换成小写格式
+var result = str.toLowerCase();
+console.log(result); // 输出结果：skybluewzzq
+</code></pre><h3 id="toUpperCase"><a href="#toUpperCase" class="headerlink" title="toUpperCase()"></a>toUpperCase()</h3><ul>
+<li>功能：将字符串转换成大写格式</li>
+<li>返回值：新字符串</li>
+<li>语法：<code>Str.toUpperCase()</code><br>Str：要处理的子字符串  </li>
+</ul>
+<pre><code>// 定义字符串
+var str = &quot;skyblueWZZQ&quot;;
+// 转换成大写格式
+var result = str.toUpperCase();
+console.log(result); // 输出结果：SKYBLUEWZZQ
+</code></pre><h2 id="匹配方法"><a href="#匹配方法" class="headerlink" title="匹配方法"></a>匹配方法</h2><h3 id="match"><a href="#match" class="headerlink" title="match()"></a>match()</h3><ul>
+<li>功能：匹配符合条件的字符串</li>
+<li>返回值：一个数组</li>
+<li>语法：<code>Str.match(exp)</code><br>exp：正则表达式或者regexp对象</li>
+</ul>
+<pre><code>// 定义字符串
+var str = &quot;skyblueWZZQ&quot;;
+// 匹配
+var result = str.match(/b/);
+console.log(result);  
+</code></pre><p>输出结果：<img src="http://i.imgur.com/3AEt1sS.png"></p>
+<h3 id="search"><a href="#search" class="headerlink" title="search()"></a>search()</h3><ul>
+<li>功能：匹配符合条件的字符串</li>
+<li>返回值：返回字符串中第一次出现匹配项的索引值</li>
+<li>语法：<code>Str.search(exp)</code><br>exp：正则表达式或者regexp对象</li>
+</ul>
+<pre><code>// 定义字符串
+var str = &quot;skyblueWZZQ&quot;;
+// 匹配
+var result = str.search(/b/);
+console.log(result); // 输出结果：3
+</code></pre><h3 id="replace"><a href="#replace" class="headerlink" title="replace()"></a>replace()</h3><ul>
+<li>功能：对字符串进行匹配，然后替换匹配到的内容</li>
+<li>返回值：替换后的新字符串</li>
+<li>语法：<code>Str.replace(a,b)</code><br>a：字符串或者regexp对象<br>b：字符串或者函数</li>
+</ul>
+<pre><code>// 定义字符串
+var str = &quot;skyblueWZZQ&quot;;
+// 匹配替换
+var result = str.replace(/blue/,&quot;文者&quot;);
+console.log(result); // 输出结果：sky文者WZZQ
+</code></pre><h3 id="split"><a href="#split" class="headerlink" title="split()"></a>split()</h3><ul>
+<li>功能：基于指定的<strong>分隔符</strong>将一个字符串分割成多个子字符串，然后将结果放到一个数组中</li>
+<li>返回值：由分隔后的子字符串组成的数组</li>
+<li>语法：<code>Str.split(a,b)</code><br>a：字符串或者regexp对象<br>b：指定返回的数组的长度</li>
+</ul>
+<pre><code>// 定义字符串
+var str = &quot;sky,blue,W,Z,Z,Q&quot;;
+// 分隔
+var result1 = str.split(&quot;,&quot;);
+var result2 = str.split(&quot;,&quot;,2);
+console.log(result1); // 输出结果：[&quot;sky&quot;, &quot;blue&quot;, &quot;W&quot;, &quot;Z&quot;, &quot;Z&quot;, &quot;Q&quot;]
+console.log(result2); // 输出结果：[&quot;sky&quot;, &quot;blue&quot;]
+</code></pre><hr>
+<p>总结：js中的字符串方法和数组的有些是通用的，如：concat()，indexOf()等，使用时要注意区分，千万不要和数组的方法混淆…^_^</p>
+<hr>
+<p></p><p style="text-align:center;"><b>完</b></p><p></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/js，字符串，string/" rel="tag"># js，字符串，string</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/15/工程化开发工具-Gulp/" rel="next" title="工程化开发工具-Gulp">
+                <i class="fa fa-chevron-left"></i> 工程化开发工具-Gulp
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/touxiang.jpg"
+               alt="文者字清" />
+          <p class="site-author-name" itemprop="name">文者字清</p>
+           
+              <p class="site-description motion-element" itemprop="description">每有会意，书于笔下，记于心间</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/SkyblueWZZQ" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/5685517786/profile?topnav=1&wvr=6&is_all=1" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://834854385@qq.com" target="_blank" title="QQ Mail">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  QQ Mail
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/xu-wen-jie-23/activities" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#字符方法"><span class="nav-number">1.</span> <span class="nav-text">字符方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#charAt"><span class="nav-number">1.1.</span> <span class="nav-text">charAt()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#charCodeAt"><span class="nav-number">1.2.</span> <span class="nav-text">charCodeAt()</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#操作方法"><span class="nav-number">2.</span> <span class="nav-text">操作方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#拼接"><span class="nav-number">2.1.</span> <span class="nav-text">拼接</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#concat"><span class="nav-number">2.1.1.</span> <span class="nav-text">concat()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#截取"><span class="nav-number">2.2.</span> <span class="nav-text">截取</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#slice"><span class="nav-number">2.2.1.</span> <span class="nav-text">slice()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#substr"><span class="nav-number">2.2.2.</span> <span class="nav-text">substr()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#substring"><span class="nav-number">2.2.3.</span> <span class="nav-text">substring()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#位置"><span class="nav-number">2.3.</span> <span class="nav-text">位置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#indexOf"><span class="nav-number">2.3.1.</span> <span class="nav-text">indexOf()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lastIndexOf"><span class="nav-number">2.3.2.</span> <span class="nav-text">lastIndexOf()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#去除空格"><span class="nav-number">2.4.</span> <span class="nav-text">去除空格</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#trim"><span class="nav-number">2.4.1.</span> <span class="nav-text">trim()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#大小写转换"><span class="nav-number">2.5.</span> <span class="nav-text">大小写转换</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#toLowerCase"><span class="nav-number">2.5.1.</span> <span class="nav-text">toLowerCase()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#toUpperCase"><span class="nav-number">2.5.2.</span> <span class="nav-text">toUpperCase()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#匹配方法"><span class="nav-number">2.6.</span> <span class="nav-text">匹配方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#match"><span class="nav-number">2.6.1.</span> <span class="nav-text">match()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#search"><span class="nav-number">2.6.2.</span> <span class="nav-text">search()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#replace"><span class="nav-number">2.6.3.</span> <span class="nav-text">replace()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#split"><span class="nav-number">2.6.4.</span> <span class="nav-text">split()</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">文者字清</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>
